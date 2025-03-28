@@ -16,14 +16,13 @@ export class AppComponent implements OnInit{
   constructor(private http: HttpClient){}
 
   list:any[]=[];
-
+  
   voted: {[id:number]: boolean}={};
 
   ngOnInit(): void{
-    this.http.get<any>("http://localhost:8082/membres").subscribe((data)=>
+    this.http.get<any>('http://localhost:8082/membres').subscribe((data)=>
     this.list=data)
     const vote = localStorage.getItem('Token');
-    
     if (vote) {
       this.voted = JSON.parse(vote);
     }

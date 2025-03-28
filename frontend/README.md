@@ -14,14 +14,24 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+## Running unit tests: Configuration de jest
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+# 1. Desistaller jasmin et karma: 
+npm uninstall @type/jasmine-core karma karma-chrome-launcher karma-coverage karma-jasmine karma-jasmine-reporter
 
-## Running end-to-end tests
+# 2 supprimer "test":[] dans le fichier angular.json 
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+# Configurer 
 
-## Further help
+# 3. Supprimer node_modules
+rm -rf node_modules
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+# 4. Installer 
+npm cache clean --force, npm install, npm install -g @angular/cli, npm install @angular/compiler --save, npm install @angular/platform-browser-dynamic --save
+
+# 5. Installer jest
+npm install jest @types/jest jest-preset-angular
+
+
+
+
