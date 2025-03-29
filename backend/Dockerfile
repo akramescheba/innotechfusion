@@ -7,22 +7,20 @@ WORKDIR /app
 #Copie du fichier pom.xml de config de spring-boot;
 COPY pom.xml .
 
-#Script de téléchargement des dependances de maven; 
-RUN mvn dependency:go-offline -B
-
-COPY . .
+COPY src ./src
+RUN mvn clean package -DskipTests
 
 FROM openjdk:11-jre-slim
 
 WORKDIR /app
 
-COPY --from=build /app/target/*.jar /app/election-0.0.1-SNAPSHOT.jar
+COPY --from=build /app/target/election-0.0.1-SNAPSHOT.jar /app/ElectionApplication.jar
 
 
 EXPOSE 8082
 
 #Command de lancement du Dockerfile
-CMD ["java", "-jar", "election-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "ElectionApplication.jar"]
 
 
 
