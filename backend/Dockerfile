@@ -1,26 +1,27 @@
-#Image 
-FROM maven:3.8.6-openjdk-11 AS build
 
-#Repertoire de travail;
+FROM maven:3.9.6-eclipse-temurin-17 AS build
+
 WORKDIR /app
 
-#Copie du fichier pom.xml de config de spring-boot;
 COPY pom.xml .
 
-COPY src ./src
-RUN mvn clean package -DskipTests
+RUN mvn dependency:go-offline -B
 
-FROM openjdk:11-jre-slim
+COPY . .
+
+RUN mvn clean package -DskipTests -B
+
+
+FROM openjdk:17-slim
+
 
 WORKDIR /app
 
-COPY --from=build /app/target/election-0.0.1-SNAPSHOT.jar /app/ElectionApplication.jar
+
+COPY --from=build /app/target/*.jar /app/ElectionApplication.jar
 
 
 EXPOSE 8082
 
-#Command de lancement du Dockerfile
-CMD ["java", "-jar", "ElectionApplication.jar"]
 
-
-
+CMD [ "java" , "-jar", "/app/ElectionApplication.jar"  ]
