@@ -139,10 +139,10 @@ jobs:
         run: npm run test:coverage -- --watch=false --browsers=ChromeHeadless
 # Phase de construction du docker image du frontend
       - name: Build Frontend Docker Image
-        run: docker buildx build  -t ${{secrets.DOCKER_USERNAME}}/innotech_angular-frontend:v1 ./frontend
+        run: docker buildx build  -t ${{secrets.DOCKER_USERNAME}}/innotech-angular-frontend:v1 ./frontend
 
       - name: Save Docker Image
-        run: docker save -o frontend-image.tar innotech_angular-frontend:v1
+        run: docker save -o frontend-image.tar innotech-angular-frontend:v1
 
       - name: Upload Frontend Image
         uses: actions/upload-artifact@v4
@@ -173,7 +173,7 @@ jobs:
           password: ${{secrets.DOCKER_PASSWORD}}
 
       - name: Push Frontend Image
-        run: docker push ${{secrets.DOCKER_USERNAME}}/innotech_angular-frontend:v1
+        run: docker push ${{secrets.DOCKER_USERNAME}}/innotech-angular-frontend:v1
 
       - name: Cleanup Unused Docker Images
         run: docker system prune -a -f --volumes
