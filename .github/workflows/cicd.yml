@@ -28,10 +28,10 @@ jobs:
     env:
       SKIP_TESTS: "false"
       SPRING_PROFILES_ACTIVE: dev
-      SPRING_DATASOURCE_URL: jdbc:mysql://127.0.0.1:3306/innotechdata?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_URL: jdbc:mysql://127.0.0.1:3308/innotechdata?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME:  ${{ secrets.MYSQL_USERNAME }}
       SPRING_DATASOURCE_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-      SPRING_DATASOURCE_DRIVER-CLASS-NAME: com.mysql.cj.jdbc.Driver
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
 
     steps:
       - name: Checkout Repository
@@ -176,4 +176,4 @@ jobs:
         run: docker push ${{ secrets.DOCKER_USERNAME }}/angular-frontend:v1
 
       - name: Cleanup Unused Docker Images
-        run: docker system prune -f
+        run: docker system prune -a -f --volumes
