@@ -1,12 +1,12 @@
-
 name: CICD
 on:
   push:
     branches:
-    - main
+      - main
   pull_request:
     branches:
       - main
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -17,8 +17,8 @@ jobs:
           MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
           MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
         ports:
-        - 3306:3306
-      options: >-
+          - 3306:3306
+        options: >-
           --health-cmd="mysqladmin ping --silent" 
           --health-start-period=30s 
           --health-retries=5 
@@ -28,7 +28,7 @@ jobs:
       SKIP_TESTS: "false"
       SPRING_PROFILES_ACTIVE: dev
       SPRING_DATASOURCE_URL: jdbc:mysql://127.0.0.1:3308/election?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME:  ${{ secrets.MYSQL_USERNAME }}
+      SPRING_DATASOURCE_USERNAME: ${{ secrets.MYSQL_USERNAME }}
       SPRING_DATASOURCE_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
       SPRING_DATASOURCE_DRIVER-CLASS-NAME: com.mysql.cj.jdbc.Driver
 
@@ -97,12 +97,10 @@ push-image-backend:
       - name: Push Backend Image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/spring-boot-backend:v1
 
-# Phase de construction du frontend.
-  build-frontend:
+build-frontend:
     runs-on: ubuntu-latest
     env:
       SKIP_TESTS: "false"
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -114,13 +112,10 @@ push-image-backend:
           key: npm-${{ hashFiles('frontend/package-lock.json') }}
           restore-keys: npm-
 
-# Installation des dépendances
-
       - name: Install Dependencies
         working-directory: frontend
         run: npm install
 
-# Phase de construction du projet frontend dans angular
       - name: Build Frontend
         working-directory: frontend
         run: npm run build --configuration=production
@@ -131,12 +126,11 @@ push-image-backend:
           name: frontend-dist
           path: frontend/dist
 
-# Phase de test du frontend
       - name: Run Frontend Tests
         if: env.SKIP_TESTS != 'true'
         working-directory: frontend
         run: npm test -- --watch=false --browsers=ChromeHeadless
-# Phase de construction du docker image du frontend
+
       - name: Build Frontend Docker Image
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/angular-frontend:v1 ./frontend
 
@@ -148,8 +142,8 @@ push-image-backend:
         with:
           name: frontend-image
           path: frontend-image.tar
-# Phase de push du frontend
-push-image-frontend:
+
+  push-image-frontend:
     runs-on: ubuntu-latest
     needs: build-frontend
     if: github.ref == 'refs/heads/main'
@@ -162,8 +156,7 @@ push-image-frontend:
 
       - name: Load Docker Image
         run: docker load -i frontend-image.tar
-        
-# Connection à DockerHub
+
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
@@ -175,6 +168,3 @@ push-image-frontend:
 
       - name: Cleanup Unused Docker Images
         run: docker system prune -f
-
-
-
