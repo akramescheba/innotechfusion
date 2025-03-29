@@ -1,36 +1,31 @@
-#Construction de l'application
-FROM node:18 AS build
 
-#Repertoire de travail
+FROM node:18-alpine AS build
+
+
 WORKDIR /app
 
-#COPY des fichiers JSON nécéssaire
 
-COPY *json ./
+COPY *.json ./
 
-#Copie du rests des fichiers
+
 COPY . .
 
-#Installation du cli angular
-RUN npm install @angular/cli 
+RUN npm install -g @angular/cli
 
-#Installation des dépendance
 RUN npm install
 
-#Construction de l'image
-RUN npm run build
+
+RUN npm run build --prod 
 
 
 FROM nginx:stable
 
-#Copie du fichier de config dans le repertoir du serveur nginx
-COPY ./nginx.conf /etc/nginx/nginx.conf
 
-#Copie du buils dans le repertoir du serveur nginx
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/nginx.conf
+
+COPY --from=build /app/dist/innotechfusion/ /usr/share/nginx/html/
+
 
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off"]
-
-
+ENTRYPOINT  ["nginx", "-g", "daemon off;"]
