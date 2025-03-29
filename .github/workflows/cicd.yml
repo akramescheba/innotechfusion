@@ -20,16 +20,16 @@ jobs:
         ports:
           - 3308:3306
         options: >-
-          --health-cmd="mysqladmin ping --silent" 
-          --health-start-period=30s 
-          --health-retries=5 
+          --health-cmd="mysqladmin ping --silent"
+          --health-start-period=30s
+          --health-retries=5
           --health-timeout=10s
 
     env:
       SKIP_TESTS: "false"
       SPRING_PROFILES_ACTIVE: dev
       SPRING_DATASOURCE_URL: jdbc:mysql://127.0.0.1:3308/innotechdata?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME:  ${{ secrets.MYSQL_USERNAME }}
+      SPRING_DATASOURCE_USERNAME: ${{ secrets.MYSQL_USERNAME }}
       SPRING_DATASOURCE_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
 
@@ -45,15 +45,13 @@ jobs:
           cache: maven
 
       - name: Wait for MySQL to be Ready
-        run: sleep 30
-
+        run: sleep 30  
       - name: Cache Maven dependencies
         uses: actions/cache@v3
         with:
           path: ~/.m2
           key: maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: maven-
-        
 
       - name: Install Dependencies
         working-directory: backend
@@ -62,13 +60,12 @@ jobs:
       - name: Run Backend Tests
         if: env.SKIP_TESTS != 'true'
         working-directory: backend
-        run: mvn test -X 
+        run: mvn test -X
 
       - name: Build Backend Docker Image
-        run: docker build -t spring-boot-backend:v1 ./backend
-
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/spring-boot-backend:v1 ./backend 
       - name: Save Docker Image
-        run: docker save -o backend-image.tar spring-boot-backend:v1
+        run: docker save -o backend-image.tar ${{ secrets.DOCKER_USERNAME }}/spring-boot-backend:v1  
 
       - name: Upload Backend Image
         uses: actions/upload-artifact@v4
@@ -88,7 +85,7 @@ jobs:
           path: .
 
       - name: Load Docker Image
-        run: docker load -i backend-image.tar
+        run: docker load -i backend-image.tar  
 
       - name: Login to DockerHub
         uses: docker/login-action@v2
@@ -97,9 +94,8 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push Backend Image
-        run: docker push meschebajordy/spring-boot-backend:v1
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/spring-boot-backend:v1  
 
-# Phase de construction du frontend.
   build-frontend:
     runs-on: ubuntu-latest
     env:
@@ -116,13 +112,10 @@ jobs:
           key: npm-${{ hashFiles('frontend/package-lock.json') }}
           restore-keys: npm-
 
-# Installation des dépendances
-
       - name: Install Dependencies
         working-directory: frontend
         run: npm install
 
-# Phase de construction du projet frontend dans angular
       - name: Build Frontend
         working-directory: frontend
         run: npm run build --configuration=production
@@ -133,17 +126,16 @@ jobs:
           name: frontend-dist
           path: frontend/dist
 
-# Phase de test du frontend
       - name: Run Frontend Tests
         if: env.SKIP_TESTS != 'true'
         working-directory: frontend
         run: npm run test:coverage -- --watch=false --browsers=ChromeHeadless
-# Phase de construction du docker image du frontend
+
       - name: Build Frontend Docker Image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/angular-frontend:v1 ./frontend
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/angular-frontend:v1 ./frontend  
 
       - name: Save Docker Image
-        run: docker save -o frontend-image.tar angular-frontend:v1
+        run: docker save -o frontend-image.tar ${{ secrets.DOCKER_USERNAME }}/angular-frontend:v1
 
       - name: Upload Frontend Image
         uses: actions/upload-artifact@v4
@@ -151,7 +143,6 @@ jobs:
           name: frontend-image
           path: frontend-image.tar
 
-# Phase de push du frontend
   push-image-frontend:
     runs-on: ubuntu-latest
     needs: build-frontend
@@ -165,8 +156,7 @@ jobs:
 
       - name: Load Docker Image
         run: docker load -i frontend-image.tar
-        
-# Connection à DockerHub
+
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
@@ -174,7 +164,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push Frontend Image
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/angular-frontend:v1
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/angular-frontend:v1  
 
       - name: Cleanup Unused Docker Images
-        run: docker system prune -a -f --volumes
+        run: docker system prune -a -f --volumes  
