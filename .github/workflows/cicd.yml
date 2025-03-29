@@ -68,7 +68,7 @@ jobs:
         run: docker build -t spring-boot-backend:v1 ./backend
 
       - name: Save Docker Image
-        run: docker save -o backend-image.tar ${{ secrets.DOCKER_USERNAME }}/spring-boot-backend:v1 .
+        run: docker save -o backend-image.tar spring-boot-backend:v1 .
 
       - name: Upload Backend Image
         uses: actions/upload-artifact@v4
