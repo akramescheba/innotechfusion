@@ -14,7 +14,7 @@ COPY . .
 #Installation du cli angular
 RUN npm install @angular/cli 
 
-#Installation des dépendances
+#Installation des dépendance
 RUN npm install
 
 #Construction de l'image
