@@ -68,7 +68,7 @@ jobs:
         run: docker build -t spring-boot-backend:v1 ./backend
 
       - name: Save Docker Image
-        run: docker save -o backend-image.tar spring-boot-backend:v1
+        run: docker save -o backend-image.tar meschebajordy/spring-boot-backend:v1
 
       - name: Upload Backend Image
         uses: actions/upload-artifact@v4
@@ -143,7 +143,7 @@ jobs:
         run: docker build -t angular-frontend:v1 ./frontend
 
       - name: Save Docker Image
-        run: docker save -o frontend-image.tar angular-frontend:v1
+        run: docker save -o frontend-image.tar meschebajordy/angular-frontend:v1
 
       - name: Upload Frontend Image
         uses: actions/upload-artifact@v4
