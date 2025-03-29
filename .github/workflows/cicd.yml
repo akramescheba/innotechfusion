@@ -15,7 +15,7 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_DATABASE: innotechdata
+          MYSQL_DATABASE: donnees
           MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
         ports:
           - 3308:3306
@@ -28,7 +28,7 @@ jobs:
     env:
       SKIP_TESTS: "false"
       SPRING_PROFILES_ACTIVE: dev
-      SPRING_DATASOURCE_URL: jdbc:mysql://127.0.0.1:3308/innotechdata?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_URL: jdbc:mysql://127.0.0.1:3308/donnees?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME:  ${{ secrets.MYSQL_USERNAME }}
       SPRING_DATASOURCE_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
       SPRING_DATASOURCE_DRIVER-CLASS-NAME: com.mysql.cj.jdbc.Driver
@@ -64,10 +64,10 @@ jobs:
         run: mvn test -X 
 
       - name: Build Backend Docker Image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/spring-boot-backend:v1 ./backend
+        run: docker build -t meschebajordy/spring-boot-backend:v1 ./backend
 
       - name: Save Docker Image
-        run: docker save -o backend-image.tar ${{ secrets.DOCKER_USERNAME }}/spring-boot-backend:v1
+        run: docker save -o backend-image.tar meschebajordy/spring-boot-backend:v1
 
       - name: Upload Backend Image
         uses: actions/upload-artifact@v4
@@ -96,7 +96,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push Backend Image
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/spring-boot-backend:v1
+        run: docker push meschebajordy/spring-boot-backend:v1
 
 # Phase de construction du frontend.
   build-frontend:
@@ -139,10 +139,10 @@ jobs:
         run: npm test -- --watch=false --browsers=ChromeHeadless
 # Phase de construction du docker image du frontend
       - name: Build Frontend Docker Image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/angular-frontend:v1 ./frontend
+        run: docker build -t meschebajordy/angular-frontend:v1 ./frontend
 
       - name: Save Docker Image
-        run: docker save -o frontend-image.tar ${{ secrets.DOCKER_USERNAME }}/angular-frontend:v1
+        run: docker save -o frontend-image.tar meschebajordy/angular-frontend:v1
 
       - name: Upload Frontend Image
         uses: actions/upload-artifact@v4
@@ -173,7 +173,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push Frontend Image
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/angular-frontend:v1
+        run: docker push meschebajordy/angular-frontend:v1
 
       - name: Cleanup Unused Docker Images
         run: docker system prune -f
