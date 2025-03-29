@@ -4,7 +4,7 @@ FROM node:18 AS build
 #Repertoire de travail
 WORKDIR /app
 
-#COPY des fichiers JSON nécéssaires
+#COPY des fichiers JSON nécéssaire
 
 COPY *json ./
 
