@@ -140,7 +140,7 @@ jobs:
         run: npm run test:coverage -- --watch=false --browsers=ChromeHeadless
 # Phase de construction du docker image du frontend
       - name: Build Frontend Docker Image
-        run: docker build -t angular-frontend:v1 ./frontend
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/angular-frontend:v1 ./frontend
 
       - name: Save Docker Image
         run: docker save -o frontend-image.tar angular-frontend:v1
@@ -174,7 +174,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push Frontend Image
-        run: docker push meschebajordy/angular-frontend:v1
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/angular-frontend:v1
 
       - name: Cleanup Unused Docker Images
         run: docker system prune -a -f --volumes
