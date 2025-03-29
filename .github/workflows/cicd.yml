@@ -97,7 +97,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push Backend Image
-        run: docker push spring-boot-backend:v1
+        run: docker push meschebajordy/spring-boot-backend:v1
 
 # Phase de construction du frontend.
   build-frontend:
@@ -174,7 +174,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push Frontend Image
-        run: docker push angular-frontend:v1
+        run: docker push meschebajordy/angular-frontend:v1
 
       - name: Cleanup Unused Docker Images
         run: docker system prune -a -f --volumes
