@@ -11,13 +11,13 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     services:
-    mysql:
-      image: mysql:latest
-      env:
+      mysql:
+        image: mysql:latest
+        env:
           MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
           MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
-      ports:
-      - 3306:3306
+        ports:
+        - 3306:3306
       options: >-
           --health-cmd="mysqladmin ping --silent" 
           --health-start-period=30s 
@@ -74,7 +74,7 @@ jobs:
           name: backend-image
           path: backend-image.tar
 
-  push-image-backend:
+push-image-backend:
     runs-on: ubuntu-latest
     needs: build-backend
     if: github.ref == 'refs/heads/main'
@@ -148,9 +148,8 @@ jobs:
         with:
           name: frontend-image
           path: frontend-image.tar
-
 # Phase de push du frontend
-  push-image-frontend:
+push-image-frontend:
     runs-on: ubuntu-latest
     needs: build-frontend
     if: github.ref == 'refs/heads/main'
