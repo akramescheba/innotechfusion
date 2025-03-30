@@ -1,20 +1,4 @@
-
 <main class="main">
-  <div class="content">
-      
-      <h1>{{ title }}</h1>
-      <p class="list-candidat">Liste des membres d'administration</p>
-      <div class="container liste" *ngFor="let candidate of list">
-        <p class="liste" >
-          {{ candidate.nom }} {{ candidate.prenom }}
-        </p>
-        <button class="vote" (click)="voter(candidate.id)" [disabled]="voted[candidate.id]">{{voted[candidate.id]? 'A voté': 'Voter'}} </button>
-      </div>
-
-
-      </div>
-
+  <app-liste></app-liste>
 </main>
-
-
 <router-outlet />

@@ -1,0 +1,59 @@
+
+.content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+h1 {
+    font-size: 2rem;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.list-candidat {
+    font-size: 2rem;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+
+    color: rgb(161, 161, 161);
+}
+.container.liste {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+}
+.liste {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: max-content;
+    margin: 20px 10px;
+    padding: 0 20px;
+}
+
+button {
+    background-color: #000fff;
+    color: aliceblue;
+    padding: 10px 50px;
+    border: 1px solid rgba(255, 255, 255, 0.219);
+    border-radius: 5px;
+}
+
+@media screen and (max-width: 650px) {
+    .content {
+        flex-direction: column;
+        width: max-content;
+    }
+
+    .divider {
+        height: 1px;
+        width: 100%;
+        background: var(--red-to-pink-to-purple-horizontal-gradient);
+        margin-block: 1.5rem;
+    }
+}
