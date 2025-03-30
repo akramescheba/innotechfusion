@@ -1,0 +1,54 @@
+[33m0661c99[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{0}: commit: tests unitaires du composant List
+[33m366daad[m HEAD@{1}: commit: tests unitaires du composant List
+[33m6b28a39[m HEAD@{2}: commit: Ajout de la du verbe PATCH dans le bachend et de la fonctionnalité de vérification de vote dans la base de données
+[33mfa2307e[m HEAD@{3}: commit: Ajout de la du verbe PATCH dans le bachend et de la fonctionnalité de vérification de vote dans la base de données
+[33mb94d124[m HEAD@{4}: commit: Configuration du server nginx
+[33mb7588a2[m HEAD@{5}: commit: Commit
+[33m6e73ae4[m HEAD@{6}: commit: Configuration du server nginx
+[33me3bc2f9[m HEAD@{7}: commit: Configuration du server nginx
+[33mb9beed8[m HEAD@{8}: commit: Configuration du server nginx
+[33mdaff697[m HEAD@{9}: commit: Configuration du server nginx
+[33m059ea10[m HEAD@{10}: commit: Configuration du server nginx
+[33mdfd62e6[m HEAD@{11}: commit: Configuration du server nginx
+[33m0dd3a37[m HEAD@{12}: commit: Configuration du server nginx
+[33mcc77d36[m HEAD@{13}: commit: Configuration du server nginx
+[33mb2f7950[m HEAD@{14}: commit: Configuration du server nginx
+[33m1f2b77d[m HEAD@{15}: commit: Configuration du server nginx
+[33maa7d1d7[m HEAD@{16}: commit: Configuration du server nginx
+[33m39ddd09[m HEAD@{17}: commit: Configuration du server nginx
+[33mbcb71ad[m HEAD@{18}: commit: Configuration du server nginx
+[33me2dd3a0[m HEAD@{19}: commit: Configuration du server nginx
+[33m634a1ce[m HEAD@{20}: commit: Configuration du server nginx
+[33m3ebd68c[m HEAD@{21}: commit: Configuration du server nginx
+[33m12c378d[m HEAD@{22}: commit: Configuration du server nginx
+[33m7a96ffc[m HEAD@{23}: commit: Configuration du server nginx
+[33m732f7f5[m HEAD@{24}: commit: Configuration du server nginx
+[33m29ed47f[m HEAD@{25}: commit: Ajout des variables de connection à la bd dans applications properties
+[33m992114f[m HEAD@{26}: commit: Ajout des variables de connection à la bd dans applications properties
+[33mb7de0ad[m HEAD@{27}: commit: Ajout des variables de connection à la bd dans applications properties
+[33mebb2742[m HEAD@{28}: commit: Ajout des variables de connection à la bd dans applications properties
+[33mb33f53e[m HEAD@{29}: commit: Ajout des variables de connection à la bd dans applications properties
+[33mca24f92[m HEAD@{30}: commit: Ajout des variables de connection à la bd dans applications properties
+[33mc3f84ca[m HEAD@{31}: commit: Ajout des variables de connection à la bd dans applications properties
+[33m62d550a[m HEAD@{32}: commit: Ajout des variables de connection à la bd dans applications properties
+[33mbe00752[m HEAD@{33}: commit: Ajout du cicd
+[33mc0489fc[m HEAD@{34}: commit: Ajout du cicd
+[33m347128a[m HEAD@{35}: commit: Ajout du cicd
+[33maf62b12[m HEAD@{36}: commit: Ajout du cicd
+[33m3f68143[m HEAD@{37}: commit: Ajout du cicd
+[33md0f1e36[m HEAD@{38}: commit: Ajout du cicd
+[33m53828cb[m HEAD@{39}: commit: Ajout du cicd
+[33ma2b0458[m HEAD@{40}: commit: Ajout du cicd
+[33me476dbb[m HEAD@{41}: pull: Fast-forward
+[33m0104a69[m HEAD@{42}: commit: Ajout du cicd
+[33me14b782[m HEAD@{43}: commit: Ajout du cicd
+[33m64d6138[m HEAD@{44}: commit (amend): Ajout des tests unitaires dans le frontend
+[33m0787747[m HEAD@{45}: commit: Ajout des tests unitaires
+[33mc0f2cf6[m HEAD@{46}: commit: mise à jour du dossier backend
+[33ma939a07[m HEAD@{47}: commit: mise à jour du nom du dossier innotechfusion en frontend
+[33mb0b2d97[m HEAD@{48}: commit: Ajout du backend
+[33m43ee8bf[m HEAD@{49}: commit: ajout du dockerfile du frontend
+[33m4691711[m HEAD@{50}: commit: Ajout de la fonctionnalité de vote et de la sauvegarde d'un vote avec localStorage
+[33m5f01d37[m HEAD@{51}: commit: creation d'un nouveau projet
+[33m5f550e5[m HEAD@{52}: Branch: renamed refs/heads/master to refs/heads/main
+[33m5f550e5[m HEAD@{54}: commit (initial): first commit
