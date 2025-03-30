@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 
 @Component({
@@ -16,8 +17,11 @@ export class ListeComponent implements OnInit {
   list: any[] = [];  
   voted: { [id: number]: boolean } = {}; 
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router:Router) {}
 
+  onClickGoHome(){
+    this.router.navigate(['/']);
+  }
   ngOnInit(): void {
     // Récupération de la liste des membres depuis l'API
     this.http.get<any[]>('http://localhost:8082/membres').subscribe(

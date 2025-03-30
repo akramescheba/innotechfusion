@@ -1,0 +1,43 @@
+main {
+    width:"max-content";
+    height: "max-content";
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    // background-color: rgb(27, 171, 255);
+}
+.container{
+    width: 80%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 120px auto;
+}
+h1{
+    text-align: center;
+    color: rgb(128, 125, 122);
+    font-size: 1.5rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 900px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+}
+button.votes{
+    color: white;
+    font-size: 1.5rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    letter-spacing: 1px;
+    padding: 20px 50px ;
+    border: 1px solid #51b9b4ed;
+    background-color: rgb(27, 171, 255);
+    border-radius: 5px;
+}
+.votes:hover{
+    background-color: #4CAF50;
+    border: 1px solid rgb(248, 245, 43);
+}

@@ -1,16 +1,21 @@
 <div class="content">
-    <!-- Balise h1 contenant le titre INFOTECHFUSION -->
-    <h1>{{ title }}</h1>
-    <!-- Paragraphe, liste des membres d'administration -->
-    <p class="list-candidat">Liste des membres d'administration</p>
-    <div class="container liste" *ngFor="let candidate of list">
-        <!-- Paragraphe de liste des membres -->
-        <p class="liste">
-            {{ candidate.nom }} {{ candidate.prenom }}
-        </p>
-        <!-- Bouton voter/À voté -->
-        <button class="vote" (click)="voter(candidate.id)" [disabled]="voted[candidate.id]">
-            {{voted[candidate.id]? 'A voté': 'Voter'}}
-        </button>
+    <button class="gohome" (click)=" onClickGoHome()">
+        Retourner à l'accueil
+    </button>
+    <div class="container">
+        <!-- Balise h1 contenant le titre INFOTECHFUSION -->
+
+        <!-- Paragraphe, liste des membres d'administration -->
+        <p class="list-candidat">Liste des membres d'administration</p>
+        <div class="container liste" *ngFor="let candidate of list">
+            <!-- Paragraphe de liste des membres -->
+            <p class="liste">
+                {{ candidate.nom }} {{ candidate.prenom }}
+            </p>
+            <!-- Bouton voter/À voté -->
+            <button class="vote" (click)="voter(candidate.id)" [disabled]="voted[candidate.id]">
+                {{voted[candidate.id]? 'A voté': 'Voter'}}
+            </button>
+        </div>
     </div>
 </div>

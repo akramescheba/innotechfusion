@@ -1,19 +1,13 @@
 package com.innotechfusion.election.services.Impl;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-
 import com.innotechfusion.election.dao.MembreRepository;
 import com.innotechfusion.election.execption.EntityDontExistExeption;
 import com.innotechfusion.election.models.Membre;
 import com.innotechfusion.election.services.MembreService;
-
-
 
 @Service
 public class MembreServiceImpl implements MembreService{
@@ -40,6 +34,15 @@ private MembreRepository membreRepository;
 	public int create(Membre membre) {
 		return membreRepository.save(membre).getId();
 	}
+	@Override
+	public void updatePartial(int id, Membre membreExistant, Membre newMembre) {
+		
+		if(newMembre.getVote() !=null) {
+			membreExistant.setVote(newMembre.getVote());
+		}
+	membreRepository.save(membreExistant);	
+	}
+	
 	
 
 

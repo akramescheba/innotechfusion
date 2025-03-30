@@ -1,7 +1,5 @@
 
-.content {
-    width: 100%;
-    height: 100%;
+.container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -35,9 +33,16 @@ h1 {
     margin: 20px 10px;
     padding: 0 20px;
 }
+button.gohome{
+    color: rgb(35, 35, 76);
+    font-size: .9rem;
+    font-family:'Times New Roman', Times, serif;
+    background-color: #dce3e8;
+    border: 1px solid#0011ff4d;
 
+}
 button {
-    background-color: #000fff;
+    background-color: #004cffe3;
     color: aliceblue;
     padding: 10px 50px;
     border: 1px solid rgba(255, 255, 255, 0.219);
