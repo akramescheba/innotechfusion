@@ -126,6 +126,12 @@ VALUES (5, 2002, 'Moreau', 'Lucas', 'voter'),(6, 1996, 'Lefevre', 'Emma', 'voter
 ```
 ![insert des donnees](https://github.com/user-attachments/assets/58450fec-2f40-4f86-a5c8-9866350283d5)
 
+### Affichage des données de labase des données.
+
+Avec la commande suivante, vous accèdez à toutes les données de la base sous forme de tableau.
+
+![affichage des donnees](https://github.com/user-attachments/assets/3c7365f3-ccf5-465f-b8c2-30e9d7ec7525)
+
 ## Clonage du projet
 
 Créer un répertoire sur le bureau et ouvrez ce répertoire dans VS Code.
