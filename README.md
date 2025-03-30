@@ -198,6 +198,11 @@ Ouvrez un navigateur et naviguer vers :
 | :-------- | :------- | :------------------------- |
 | `membres` | `string` | Liste de tous les membres |
 
+#### Erreur possibles
+
+En cas d'affichage de la pas d'erreur dans l'ecriture de l'adresse de l'API: *Whitelabel Error Page* , vous devez faire la verification de la saisie de l'API.
+
+![Whitelabel Error Page](https://github.com/user-attachments/assets/fcd11d96-174d-43f9-b95c-03e11b845ae6)
 
 ## 🔗 Links
 [![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://portfoli-iscod.web.app/)
