@@ -1,11 +1,10 @@
-
-import { ListeComponent } from './liste.component';
-
 import { TestBed } from '@angular/core/testing';
 import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
+import { ListeComponent } from './liste.component';
+import {fakeAsync, tick} from "@angular/core/testing";
 
 describe('ListeComponent', () => {
   let fixture: ListeComponent;
@@ -16,7 +15,7 @@ describe('ListeComponent', () => {
       if (key === 'Token') return JSON.stringify({});
       return null;
     });
-    jest.spyOn(Storage.prototype, 'setItem');
+    jest.spyOn(Storage.prototype,'setItem');
 
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -37,7 +36,7 @@ describe('ListeComponent', () => {
   it('should fetch data on ngOnInit and testing response', () => {
     const mockData = [
       {
-        id: 5,
+        id: 1,
         ddn: 2002,
         nom: 'Moreau',
         prenom: 'Lucas',
@@ -50,12 +49,31 @@ describe('ListeComponent', () => {
     req.flush(mockData);
     expect(fixture.list).toEqual(mockData);
   });
-
-  it('should have setItem', () => {
+  it('should send PATCH request and update state', fakeAsync(() => {
     const id = 1;
-    const spy = jest.spyOn(localStorage, 'setItem');
+    const mockData = [
+      {
+        id: 1,
+        ddn: 2002,
+        nom: 'Moreau',
+        prenom: 'Lucas',
+        vote: 'voter', 
+      }
+    ];
+  
+    fixture.list = mockData; 
     fixture.voter(id);
+  
+    const req = httpMock.expectOne(`http://localhost:8082/membre/${id}`);
+    expect(req.request.method).toBe('PATCH');
+    expect(req.request.body).toEqual({ vote: 'À voté' });
+  
+    req.flush({}); 
+  
+    tick(); 
+  
     expect(fixture.voted[id]).toBe(true);
-    expect(spy).toHaveBeenCalledWith('Token', JSON.stringify({ 1: true }));
-  });
+    expect(Storage.prototype.setItem).toHaveBeenCalledWith('Token', JSON.stringify({ 1: true }));
+    expect(fixture.list[0].vote).toBe('À voté'); 
+  }));
 });
