@@ -113,6 +113,19 @@ Vous devez procédez à la création de la table membres, qui contiendra la list
     vote VARCHAR (50) NOT NULL,);
 ```
 ![create table](https://github.com/user-attachments/assets/3a98d6fc-12bb-416a-9416-f711eb401df9)
+
+Vous devez actuellement ajouter des données de test contenant les informations au format nom, prenom et dte de naissance et egalement vote pour le statut du vote.
+
+Requête d'ajout des données à la base:
+
+```bash
+    INSERT INTO membre (id, ddn, nom, prenom, vote) 
+VALUES (5, 2002, 'Moreau', 'Lucas', 'voter'),(6, 1996, 'Lefevre', 'Emma', 'voter'),(7, 1990, 'Bernard', 'Sophie', 'voter'),(8, 1985, 'Dubois', 'Thomas', 'voter'),(9, 1998, 'Martinez', 'Camille', 'voter'),(10, 1993, 'Garcia', 'Hugo', 'voter'),(11, 2000, 'Lambert', 'Manon', 'voter'),(12, 1987, 'Fontaine', 'Louis', 'voter'),(13, 1995, 'Rousseau', 'Chloé', 'voter'), (14, 2001, 'Blanc', 'Nathan', 'voter'
+);
+
+```
+![insert des donnees](https://github.com/user-attachments/assets/58450fec-2f40-4f86-a5c8-9866350283d5)
+
 ## Clonage du projet
 
 Créer un répertoire sur le bureau et ouvrez ce répertoire dans VS Code.
