@@ -36,14 +36,12 @@ export class ListeComponent implements OnInit {
       },
       (error) => console.error("Erreur lors de la récupération des membres :", error)
     );
-
     // Récupération des votes stockés en local
     const vote = localStorage.getItem('Token');
     if (vote) {
       this.voted = JSON.parse(vote);
     }
   }
-
   // Fonction pour enregistrer le vote d'un membre
   voter(id: number): void {
     if (!this.voted[id]) {
