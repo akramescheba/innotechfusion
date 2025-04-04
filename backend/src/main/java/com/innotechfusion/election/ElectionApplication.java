@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages="com.innotechfusion.election.services.Impl")
+@ComponentScan(basePackages="com.innotechfusion.election.services")
 public class ElectionApplication {
 
 	public static void main(String[] args) {
