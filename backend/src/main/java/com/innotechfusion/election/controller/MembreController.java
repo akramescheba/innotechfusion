@@ -26,19 +26,18 @@ public class MembreController {
 	@GetMapping("/membres")
 	public  List<Membre> findAll(){
 		
-		return membreServices.findAll();			
+		return membreServices.findAll();	
 	}
 	
 	@GetMapping("/membre/{id}")
 	public Membre findById(@PathVariable("id") int id) {
 		Membre membre = membreServices.findById(id);
 		
-		if (membre ==null) {
-			
+		if (membre ==null) {	
 		}
 		return membre;
 	}
-	@PostMapping("membre")
+	@PostMapping("/membre")
 	@ResponseStatus(code=HttpStatus.CREATED)
 	public int create(@RequestBody Membre membre) {
 		return membreServices.create(membre);
@@ -52,7 +51,6 @@ Membre membreExistant = membreServices.findById(id);
 		
 		if (membreExistant ==null) {
 			
-	
 		throw new EntityDontExistExeption();
 		}
 		membreServices.updatePartial( id, membreExistant, newMembre);

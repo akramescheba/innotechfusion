@@ -27,7 +27,6 @@ private MembreRepository membreRepository;
 		if(membre.isPresent()) {
 			return membre.get();
 		}
-		
 		throw new EntityDontExistExeption();
 	}
 	@Override
