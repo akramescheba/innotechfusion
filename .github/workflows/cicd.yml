@@ -66,8 +66,9 @@ jobs:
           name: jacoco-report
           path: backend/target/site/jacoco/
       - name: Show JaCoCo Coverage Summary in Logs
+        working-directory: backend
         run: |
-            REPORT=backend/target/site/jacoco/jacoco.csv
+            cat target/site/jacoco/index.html 
       - name: Archive test results
         uses: actions/upload-artifact@v4
         with:
