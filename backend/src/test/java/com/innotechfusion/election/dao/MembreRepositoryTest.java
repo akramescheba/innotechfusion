@@ -26,8 +26,9 @@ public class MembreRepositoryTest {
   @Test
   //Test finByyId
   void shouldFindMembreById() {
-    Membre membre = membreServiceImpl.findById(6);
-    assertEquals("Lefevre", membre.getNom());
+    Membre membre = membreServiceImpl.findById(5);
+    assertEquals("Moreau", membre.getNom());
+
   }
 
   @Test
@@ -39,16 +40,16 @@ public class MembreRepositoryTest {
     membreServiceImpl.updatePartial(6, voteExistant, newVote);
   }
 
-  // @Test
-  // //Test de vérification de la méthode post;
-  // void shouldCreateMembre() {
-  //   Membre newMembre = new Membre();
-  //   newMembre.setDdn(2005);
-  //   newMembre.setNom("AKRA MESCHEBA");
-  //   newMembre.setPrenom("Jordy");
-  //   newMembre.setVote("voter");
-  //   membreServiceImpl.create(newMembre);
+  @Test
+  //Test de vérification de la méthode post;
+  void shouldCreateMembre() {
+    Membre newMembre = new Membre();
+    newMembre.setDdn(2005);
+    newMembre.setNom("AKRA MESCHEBA");
+    newMembre.setPrenom("Jordy");
+    newMembre.setVote("voter");
+    membreServiceImpl.create(newMembre);
 
-  //   assertEquals(2005, newMembre.getDdn());
-  // }
+    assertEquals(2005, newMembre.getDdn());
+  }
 }
