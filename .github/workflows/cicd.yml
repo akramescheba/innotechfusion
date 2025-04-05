@@ -1,64 +1,171 @@
-build-backend:
-  runs-on: ubuntu-latest
-  services:
-    mysql:
-      image: mysql:8.0
-      env:
-        MYSQL_DATABASE: donnees
-        MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-      ports:
-        - 3308:3306
-      options: >-
-        --health-cmd="mysqladmin ping --silent" 
-        --health-start-period=30s 
-        --health-retries=5 
-        --health-timeout=10s
-  env:
-    SKIP_TESTS: "false"
-    SPRING_PROFILES_ACTIVE: dev
-    SPRING_DATASOURCE_URL: jdbc:mysql://127.0.0.1:3308/donnees?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-    SPRING_DATASOURCE_USERNAME:  ${{ secrets.MYSQL_USERNAME }}
-    SPRING_DATASOURCE_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-    SPRING_DATASOURCE_DRIVER-CLASS-NAME: com.mysql.cj.jdbc.Driver
+name: CICD-Pipeline
 
-  steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
-    - name: Set up JDK 18
-      uses: actions/setup-java@v4
-      with:
-        java-version: "18"
-        distribution: "adopt"
-        cache: maven
+jobs:
+  build-backend:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: donnees
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+        ports:
+          - 3308:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent" 
+          --health-start-period=30s 
+          --health-retries=5 
+          --health-timeout=10s
+    env:
+      SKIP_TESTS: "false"
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_DATASOURCE_URL: jdbc:mysql://127.0.0.1:3308/donnees?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME:  ${{ secrets.MYSQL_USERNAME }}
+      SPRING_DATASOURCE_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+      SPRING_DATASOURCE_DRIVER-CLASS-NAME: com.mysql.cj.jdbc.Driver
 
-    - name: Wait for MySQL to be Ready
-      run: sleep 30
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-    - name: Cache Maven dependencies
-      uses: actions/cache@v3
-      with:
-        path: ~/.m2
-        key: maven-${{ hashFiles('**/pom.xml') }}
-        restore-keys: maven-
+      - name: Set up JDK 18
+        uses: actions/setup-java@v4
+        with:
+          java-version: "18"
+          distribution: "adopt"
+          cache: maven
 
-    - name: Install Dependencies
-      working-directory: backend
-      run: mvn clean install -DskipTests 
+      - name: Wait for MySQL to be Ready
+        run: sleep 30
 
-    - name: Run Backend Tests
-      if: env.SKIP_TESTS != 'true'
-      working-directory: backend
-      run: mvn test
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: maven-
 
-    - name: Build Backend Docker Image
-      run: docker build -t meschebajordy/innotech-spring-boot-backend:v1 ./backend
+      - name: Install Dependencies
+        working-directory: backend
+        run: mvn clean install -DskipTests 
 
-    - name: Save Docker Image
-      run: docker save -o backend-image.tar meschebajordy/innotech-spring-boot-backend:v1
+      - name: Run Backend Tests
+        if: env.SKIP_TESTS != 'true'
+        working-directory: backend
+        run: mvn test
 
-    - name: Upload Backend Image
-      uses: actions/upload-artifact@v4
-      with:
-        name: backend-image
-        path: backend-image.tar
+      - name: Build Backend Docker Image
+        run: docker build -t meschebajordy/innotech-spring-boot-backend:v1 ./backend
+
+      - name: Save Docker Image
+        run: docker save -o backend-image.tar meschebajordy/innotech-spring-boot-backend:v1
+
+      - name: Upload Backend Image
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-image
+          path: backend-image.tar
+
+  push-image-backend:
+    runs-on: ubuntu-latest
+    needs: build-backend
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Download Backend Image
+        uses: actions/download-artifact@v4
+        with:
+          name: backend-image
+          path: ./
+
+      - name: Load Docker Image
+        run: docker load -i backend-image.tar
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push Backend Image
+        run: docker push meschebajordy/innotech-spring-boot-backend:v1
+
+  build-frontend:
+    runs-on: ubuntu-latest
+    env:
+      SKIP_TESTS: "false"
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Cache Node Modules
+        uses: actions/cache@v3
+        with:
+          path: frontend/node_modules
+          key: npm-${{ hashFiles('frontend/package-lock.json') }}
+          restore-keys: npm-
+
+      - name: Install Dependencies
+        working-directory: frontend
+        run: npm install
+
+      - name: Build Frontend
+        working-directory: frontend
+        run: npm run build --configuration=production
+
+      - name: Upload dist
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-dist
+          path: frontend/dist
+
+      - name: Run Frontend Tests
+        if: env.SKIP_TESTS != 'true'
+        working-directory: frontend
+        run: npm run test:coverage -- --watch=false --browsers=ChromeHeadless
+
+      - name: Build Frontend Docker Image
+        run: docker build -t meschebajordy/innotech-angular-frontend:v1 ./frontend
+
+      - name: Save Docker Image
+        run: docker save -o frontend-image.tar meschebajordy/innotech-angular-frontend:v1
+
+      - name: Upload Frontend Image
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-image
+          path: frontend-image.tar
+
+  push-image-frontend:
+    runs-on: ubuntu-latest
+    needs: build-frontend
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Download Frontend Image
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-image
+          path: ./
+
+      - name: Load Docker Image
+        run: docker load -i frontend-image.tar
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push Frontend Image
+        run: docker push meschebajordy/innotech-angular-frontend:v1
+
+      - name: Cleanup Unused Docker Images
+        run: docker system prune -f
