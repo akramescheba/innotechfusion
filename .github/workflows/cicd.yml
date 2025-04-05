@@ -56,9 +56,6 @@ jobs:
       - name: Install Dependencies
         working-directory: backend
         run: mvn clean install -DskipTests 
-        
-      - name: Running backend project
-        run: mvn spring-boot:run
 
       - name: Run Backend Tests
         if: env.SKIP_TESTS != 'true'
