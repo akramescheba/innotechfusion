@@ -1,4 +1,4 @@
-package com.innotechfusion.election.services.Impl;
+package com.innotechfusion.election.services.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +11,7 @@ import com.innotechfusion.election.services.MembreService;
 
 @Service
 public class MembreServiceImpl implements MembreService{
-@Autowired
+@Autowired(required=true)
 private MembreRepository membreRepository;
 	@Override
 	public List<Membre> findAll() {
@@ -41,12 +41,4 @@ private MembreRepository membreRepository;
 		}
 	membreRepository.save(membreExistant);	
 	}
-	
-	
-
-
-
-
-
-
 }

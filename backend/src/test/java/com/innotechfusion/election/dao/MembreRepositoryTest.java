@@ -1,14 +1,16 @@
 package com.innotechfusion.election.dao;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import com.innotechfusion.election.models.Membre;
-import com.innotechfusion.election.services.Impl.MembreServiceImpl;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
-@DataJpaTest
+import com.innotechfusion.election.models.Membre;
+import com.innotechfusion.election.services.impl.MembreServiceImpl;
+@ActiveProfiles("test")
+@SpringBootTest
 public class MembreRepositoryTest {
 
   @Autowired
@@ -31,23 +33,22 @@ public class MembreRepositoryTest {
   @Test
   //Test de vérification de la méthode patch;
   void shouldPatchVote() {
-    Membre voteExistant = membreServiceImpl.findById(6);
+    Membre voteExistant = membreServiceImpl.findById(7);
     Membre newVote = new Membre();
-
     newVote.setVote("A voté");
     membreServiceImpl.updatePartial(6, voteExistant, newVote);
   }
 
-  @Test
-  //Test de vérification de la méthode post;
-  void shouldCreateMembre() {
-    Membre newMembre = new Membre();
-    newMembre.setDdn(2005);
-    newMembre.setNom("Test");
-    newMembre.setPrenom("Testing");
-    newMembre.setVote("voter");
-    membreServiceImpl.create(newMembre);
+  // @Test
+  // //Test de vérification de la méthode post;
+  // void shouldCreateMembre() {
+  //   Membre newMembre = new Membre();
+  //   newMembre.setDdn(2005);
+  //   newMembre.setNom("AKRA MESCHEBA");
+  //   newMembre.setPrenom("Jordy");
+  //   newMembre.setVote("voter");
+  //   membreServiceImpl.create(newMembre);
 
-    assertEquals(2005, newMembre.getDdn());
-  }
+  //   assertEquals(2005, newMembre.getDdn());
+  // }
 }

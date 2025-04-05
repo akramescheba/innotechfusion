@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 public class Membre {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	private int ddn;
 	private String nom;

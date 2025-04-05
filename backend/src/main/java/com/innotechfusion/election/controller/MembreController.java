@@ -17,7 +17,6 @@ import com.innotechfusion.election.models.Membre;
 import com.innotechfusion.election.services.MembreService;
 
 @CrossOrigin(origins = "http://localhost:4200")
-
 @RestController
 public class MembreController {
 	
