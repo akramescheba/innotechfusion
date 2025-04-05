@@ -1,12 +1,16 @@
 <div class="content">
     <button class="gohome" (click)=" onClickGoHome()">
         Retourner à l'accueil
-    </button>
-    <div class="container">
-        <!-- Balise h1 contenant le titre INFOTECHFUSION -->
 
-        <!-- Paragraphe, liste des membres d'administration -->
-        <p class="titre-list-candidat">Liste des membres d'administration</p>
+    </button>
+
+    <div class="row">
+<!-- Paragraphe, liste des membres d'administration -->
+<p class="titre-list-candidat">Liste des membres d'administration</p>
+
+    </div>
+    <div class="container all">
+        <!-- Balise h1 contenant le titre INFOTECHFUSION -->
         <div class="container liste" *ngFor="let candidate of list">
             <!-- Paragraphe de liste des membres -->
             <p class="liste">
