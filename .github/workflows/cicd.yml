@@ -126,7 +126,6 @@ jobs:
           path: frontend/dist
 
       - name: Run Frontend Tests
-        if: env.SKIP_TESTS != 'true'
         working-directory: frontend
         run: npm run test:coverage -- --watch=false --browsers=ChromeHeadless
 
