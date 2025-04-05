@@ -2,8 +2,10 @@ package com.innotechfusion.election;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication(scanBasePackages="com.innotechfusion.election")
+@SpringBootApplication
+@ComponentScan(basePackages="com.innotechfusion.election.services.impl")
 
 public class ElectionApplication {
 
