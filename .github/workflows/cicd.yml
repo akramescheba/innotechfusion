@@ -56,11 +56,14 @@ jobs:
       - name: Install Dependencies
         working-directory: backend
         run: mvn clean install -DskipTests 
+      - name: Run Backend project
+        working-directory: backend
+        run: mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Xmx
 
       - name: Run Backend Tests
         if: env.SKIP_TESTS != 'true'
         working-directory: backend
-        run: mvn clean test
+        run: mvn  test
       - name: Build Backend Docker Image
         run: docker build -t meschebajordy/innotech-spring-boot-backend:v1 ./backend
 
@@ -123,11 +126,6 @@ jobs:
       - name: Build Frontend
         working-directory: frontend
         run: npm run build --configuration=production
-
-# Phase de lancement du projet frontend dans angular
-      - name: Run Frontend
-        working-directory: frontend
-        run: ng serve
 
       - name: Upload dist
         uses: actions/upload-artifact@v4
