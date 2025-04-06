@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@EntityScan(basePackages = "com.innotechfusion.election.models")
-@ComponentScan(basePackages = "com.innotechfusion.election.services") 
+@EntityScan(basePackages = "com.innotechfusion.election")
+@ComponentScan(basePackages = "com.innotechfusion.election") 
 
 public class ElectionApplication {
 
