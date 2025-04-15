@@ -205,7 +205,6 @@ En cas d'affichage d'erreur du type : *Whitelabel Error Page* , vous devez faire
 ![Whitelabel Error Page](https://github.com/user-attachments/assets/fcd11d96-174d-43f9-b95c-03e11b845ae6)
 
 ## 🔗 Links
-[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://portfoli-iscod.web.app/)
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/jordy-akra-mescheba/)
 
 
