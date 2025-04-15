@@ -198,9 +198,9 @@ Ouvrez un navigateur et naviguer vers :
 | :-------- | :------- | :------------------------- |
 | `membres` | `string` | Liste de tous les membres |
 
-#### Erreur possibles
+#### Erreur possible
 
-En cas d'affichage de la pas d'erreur dans l'ecriture de l'adresse de l'API: *Whitelabel Error Page* , vous devez faire la verification de la saisie de l'API.
+En cas d'affichage d'erreur du type : *Whitelabel Error Page* , vous devez faire la verification de la saisie de l'API et vous rassurer que l'adresse à bien été saisir dans l'URL.
 
 ![Whitelabel Error Page](https://github.com/user-attachments/assets/fcd11d96-174d-43f9-b95c-03e11b845ae6)
 
